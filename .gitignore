@@ -2,9 +2,15 @@
 candidates.jsonl
 *.jsonl
 
-# Precomputed artifacts (large binaries)
+# Precomputed artifacts
 artifacts/
 submission/
+
+# Embedding / FAISS artifacts
+*.npy
+*.bin
+*.pkl
+*.pickle
 
 # Python
 __pycache__/
@@ -18,12 +24,17 @@ build/
 venv/
 .venv/
 
+# IDE
+.vscode/
+.idea/
+
 # OS
 .DS_Store
 Thumbs.db
 
 # HuggingFace model cache
 .cache/
+huggingface/
 
 # Jupyter
 .ipynb_checkpoints/
