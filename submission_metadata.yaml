@@ -1,0 +1,55 @@
+# Redrob Hackathon — Submission Metadata
+# Fill in your details before submitting.
+
+team_name: "your-team-name"
+
+primary_contact:
+  name: "Your Name"
+  email: "you@example.com"
+  phone: "+91-XXXXXXXXXX"
+
+team_members:
+  - name: "Your Name"
+    email: "you@example.com"
+    role: "ML Engineer"
+
+github_repo: "https://github.com/YOUR_USERNAME/redrob-ranker"
+sandbox_link: "https://huggingface.co/spaces/YOUR_USERNAME/redrob-ranker"
+
+reproduce_command: "python scripts/rank.py --candidates ./candidates.jsonl --out ./submission/submission.csv"
+
+compute:
+  platform: "Local CPU"
+  cpu_cores: 8
+  ram_gb: 16
+  python_version: "3.11"
+  os: "Ubuntu 22.04 / macOS 14"
+  uses_gpu_for_inference: false
+  has_network_during_ranking: false
+  pre_computation_required: true
+  pre_computation_time_minutes: 20
+
+ai_tools_used:
+  - "Claude"
+
+ai_usage_summary: |
+  Used Claude for architecture design, code structure, and implementation.
+  All scoring logic reviewed and tuned manually. No candidate data fed to any LLM.
+  Ranking step uses only local models (sentence-transformers) with no API calls.
+
+methodology_summary: |
+  Hybrid ranking system: FAISS semantic retrieval (top-1500) followed by
+  structured re-ranking. Scoring: career fit (40%, shipping evidence + domain
+  terms + seniority), skill depth (20%, proficiency × endorsements × duration),
+  semantic similarity (30%, all-MiniLM-L6-v2 cosine), location/logistics (5%),
+  behavioral signals (5%, availability + engagement + credibility). Multiplicative
+  consistency penalty (0.3–1.0) catches honeypots via YoE timeline mismatch,
+  impossible tenure, and zero-duration expert skills. Deterministic: fixed model
+  weights, candidate_id tiebreaker. Runtime ~2 min on CPU after precompute.
+
+declarations:
+  read_submission_spec: true
+  code_is_original_work: true
+  no_collusion: true
+  honeypot_check_done: true
+  reproduction_tested: true

@@ -1,0 +1,45 @@
+Senior AI Engineer — Founding Team (Series A, India)
+
+We are building the next-generation intelligent search and recommendation
+platform. We are a small, fast-moving team and you would be one of the first
+senior AI hires. You will own the ranking and retrieval stack end-to-end.
+
+Responsibilities:
+- Design, build, and ship production-grade ranking and retrieval systems
+  (embedding-based retrieval, re-rankers, hybrid search) to real users.
+- Own the offline and online evaluation pipeline: NDCG, MRR, MAP, A/B tests.
+- Work hands-on with vector databases (Faiss, Pinecone, Weaviate, Qdrant,
+  Elasticsearch, OpenSearch).
+- Fine-tune and evaluate sentence-transformers, BGE, E5, and similar models.
+- Collaborate with product and data teams to iterate quickly.
+- Write production Python — not notebooks, not PoCs.
+
+Requirements:
+- 5–9 years total experience; 4–5 years in applied ML/AI at product companies
+  (not consulting firms, not research-only).
+- Must have shipped at least one end-to-end ranking, search, or recommendation
+  system to real users in the last 18 months.
+- Deep hands-on experience with information retrieval, NLP, embeddings,
+  LLM integration, and evaluation frameworks.
+- Strong Python (PyTorch, HuggingFace, sentence-transformers, scikit-learn).
+- Experience with vector databases and hybrid search.
+- Not a framework enthusiast — a systems thinker who can justify every design
+  decision.
+
+What automatically disqualifies:
+- Entire career at consulting firms (TCS, Infosys, Wipro) with no product
+  company experience.
+- "AI experience" = only recent LangChain + OpenAI wrapper work.
+- No production code in the last 18 months.
+- Only computer vision or speech, no NLP or information retrieval.
+- Pure research background with no deployment history.
+
+Location: Pune or Noida preferred; Bangalore, Hyderabad, Mumbai also fine.
+Open to relocation strongly preferred. Sub-30-day notice ideal.
+
+Salary: Competitive. Equity. Series A.
+
+Keywords: ranking, retrieval, recommendation, embeddings, vector search,
+NLP, information retrieval, sentence-transformers, FAISS, Pinecone,
+evaluation, NDCG, MRR, LLM, fine-tuning, RAG, production ML, Python,
+PyTorch, HuggingFace, senior AI engineer.

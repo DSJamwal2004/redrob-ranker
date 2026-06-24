@@ -1,0 +1,77 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Redrob Ranker — Configuration
+# All major tuning knobs live here. Edit without touching source code.
+# ─────────────────────────────────────────────────────────────────────────────
+
+model:
+  # Sentence-transformer model for embedding (offline, CPU-only)
+  embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
+  embedding_batch_size: 256
+  embedding_dim: 384
+
+retrieval:
+  # FAISS top-k before structured re-ranking. Tune down to speed up rank.py.
+  # Recommended range: 500–2000. Must be >= 100.
+  retrieval_k: 1500
+  final_top_n: 100
+
+scoring:
+  # Final weights — must sum to 1.0.
+  # Career fit dominates; semantic is a retrieval support signal only.
+  weights:
+    career:   0.50   # career evidence, shipping history, recency, seniority
+    skills:   0.20   # depth of AI/ML skill portfolio
+    semantic: 0.15   # cosine similarity to JD (retrieval support signal)
+    location: 0.05   # India location and notice period
+    behavior: 0.10   # availability, engagement, credibility
+  score_precision: 4  # decimal places for stable sort and output
+
+company:
+  # Company type heuristic scores. Keep the gap moderate — not a prestige filter.
+  # product_score / consulting_score ratio drives how much company type matters.
+  consulting_score: 0.45   # consulting/IT-services company in career
+  product_score:    0.82   # product/tech company in career
+
+honeypot:
+  # Thresholds for consistency penalty (multiplicative, 0.3–1.0)
+  yoe_mismatch_threshold_years: 3.0   # claimed vs inferred YoE gap to trigger penalty
+  expert_zero_duration_limit:   2     # > N expert skills with 0 months triggers penalty
+  expert_zero_duration_penalty: 0.55
+  expert_zero_endorse_limit:    4     # > N expert skills with 0 endorsements triggers penalty
+  expert_zero_endorse_penalty:  0.70
+  current_role_yoe_slack_years: 1.5   # slack before current-role-longer-than-yoe fires
+  current_role_yoe_penalty:     0.35  # very suspicious — current role longer than full career
+  yoe_mismatch_penalty:         0.55
+  min_penalty_multiplier:       0.30  # floor for combined penalties
+
+behavioral:
+  # Days thresholds for recency scoring
+  active_days:   30
+  recent_days:   90
+  moderate_days: 180
+  stale_days:    365
+  # Inactivity threshold for raising a concern in reasoning
+  inactivity_concern_days: 180
+
+paths:
+  # Relative to repo root (or absolute)
+  artifacts_dir: "artifacts"
+  submission_dir: "submission"
+  # If this file exists, JD text is loaded from it instead of constants.py fallback
+  jd_text_file:  "jd.txt"
+
+locations:
+  preferred_cities:
+    - pune
+    - noida
+  ok_cities:
+    - bangalore
+    - bengaluru
+    - hyderabad
+    - mumbai
+    - gurgaon
+    - gurugram
+    - delhi
+    - new delhi
+    - chennai
+    - kolkata

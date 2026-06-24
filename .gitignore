@@ -1,0 +1,30 @@
+# Large data files — never commit
+candidates.jsonl
+*.jsonl
+
+# Precomputed artifacts (large binaries)
+artifacts/
+submission/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+.env
+venv/
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# HuggingFace model cache
+.cache/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
