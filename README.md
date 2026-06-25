@@ -1,8 +1,51 @@
 # Redrob Intelligent Candidate Ranking — Final Solution
 
-Hybrid semantic + structured + behavioral ranking system for the Redrob Data & AI Challenge.
+> Hybrid semantic + structured + behavioral ranking system for the **Redrob Data & AI Challenge**.
 
-Ranks 100,000 candidates for a Senior AI Engineer role and produces a submission CSV with exactly 100 ranked candidates, complete with deterministic factual reasoning.
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
+[![FAISS](https://img.shields.io/badge/FAISS-Vector%20Search-orange)](https://github.com/facebookresearch/faiss)
+[![Sentence Transformers](https://img.shields.io/badge/Sentence%20Transformers-all--MiniLM--L6--v2-green)](https://www.sbert.net/)
+[![Deterministic](https://img.shields.io/badge/Output-Deterministic-success)]()
+[![Challenge](https://img.shields.io/badge/Submission-Ready-red)]()
+
+---
+
+## 🚀 Live Interactive Demo
+
+**Live Demo:** https://DSJamwal2004.github.io/redrob-ranker/demo/
+
+This repository includes an interactive recruiter-style prototype that demonstrates the complete ranking workflow from a recruiter’s perspective. It visualizes semantic retrieval, hybrid scoring, candidate reasoning, comparison mode, analytics, and semantic-vs-keyword behavior.
+
+### Demo Features
+
+- Job Description driven candidate ranking
+- Semantic retrieval with FAISS
+- Explainable candidate score breakdown
+- Recruiter-style shortlist view
+- Side-by-side candidate comparison
+- Analytics dashboard
+- Semantic vs Keyword ranking visualization
+- Consistency / honeypot detection signals
+- Fully interactive UI prototype
+
+> **Note:** The live demo is a front-end prototype designed to illustrate the product experience and ranking logic. It complements the production ranking engine implemented in this repository.
+
+---
+
+## Project Overview
+
+Recruiters often need to review thousands of profiles, but keyword filters miss strong candidates and over-rank buzzword-heavy profiles. This project solves that problem by ranking **100,000 candidates** for a Senior AI Engineer role using a hybrid method that combines semantic retrieval with structured recruiter-inspired scoring.
+
+Instead of matching only keywords, the system evaluates:
+
+- career evidence,
+- skill depth,
+- semantic relevance,
+- behavioral signals,
+- location and logistics,
+- and profile consistency.
+
+The result is a shortlist that is closer to how an experienced recruiter would evaluate candidates than how a search engine would.
 
 ---
 
@@ -48,12 +91,13 @@ submission.csv
 
 ### Key Design Principles
 
-* Career evidence dominates ranking.
-* Semantic similarity is used for retrieval support, not ranking dominance.
-* Skill depth matters more than skill count.
-* Behavioral signals prevent unavailable candidates from ranking highly.
-* Honeypot detection uses soft consistency penalties rather than hard filters.
-* Fully deterministic output.
+- Career evidence dominates ranking.
+- Semantic similarity is used for retrieval support, not ranking dominance.
+- Skill depth matters more than skill count.
+- Behavioral signals prevent unavailable candidates from ranking highly.
+- Honeypot detection uses soft consistency penalties rather than hard filters.
+- Fully deterministic output.
+- Ranking logic is recruiter-first, not keyword-first.
 
 ---
 
@@ -69,9 +113,11 @@ score = (
 ) × consistency_penalty(candidate)
 ```
 
-Scores are clipped to [0,1].
+Scores are clipped to `[0, 1]`.
 
 ---
+
+## Scoring Components
 
 ### Career Fit (50%)
 
@@ -79,19 +125,19 @@ Primary ranking signal.
 
 Measures:
 
-* Shipping evidence
-* Search / ranking / retrieval relevance
-* Domain density
-* Career progression
-* Company-type heuristic
+- shipping evidence
+- search / ranking / retrieval relevance
+- domain density
+- career progression
+- company-type heuristic
 
 Examples of strong evidence:
 
-* built ranking systems
-* shipped retrieval pipelines
-* search infrastructure ownership
-* recommendation systems
-* embeddings infrastructure
+- built ranking systems
+- shipped retrieval pipelines
+- search infrastructure ownership
+- recommendation systems
+- embeddings infrastructure
 
 ---
 
@@ -101,10 +147,10 @@ Measures quality rather than quantity.
 
 Signals:
 
-* proficiency
-* endorsements
-* duration
-* anti-stuffing checks
+- proficiency
+- endorsements
+- duration
+- anti-stuffing checks
 
 A candidate with:
 
@@ -138,11 +184,11 @@ Measures hiring practicality.
 
 Signals:
 
-* open-to-work
-* recruiter response rate
-* last active date
-* profile verification
-* connection count
+- open-to-work
+- recruiter response rate
+- last active date
+- profile verification
+- connection count
 
 Inactive candidates are naturally down-weighted.
 
@@ -152,10 +198,10 @@ Inactive candidates are naturally down-weighted.
 
 Measures:
 
-* India preference
-* preferred cities
-* willingness to relocate
-* notice period
+- India preference
+- preferred cities
+- willingness to relocate
+- notice period
 
 Preferred cities:
 
@@ -187,12 +233,12 @@ Soft multiplier:
 
 Checks:
 
-* YoE mismatch
-* impossible timelines
-* expert skills with zero evidence
-* suspicious skill inflation
+- YoE mismatch
+- impossible timelines
+- expert skills with zero evidence
+- suspicious skill inflation
 
-This prevents obvious keyword-stuffers from entering the top ranks.
+This prevents obvious keyword-stuffers from entering the top ranks while still preserving unusual but legitimate profiles.
 
 ---
 
@@ -206,10 +252,10 @@ sentence-transformers/all-MiniLM-L6-v2
 
 Properties:
 
-* 384 dimensions
-* CPU friendly
-* deterministic
-* strong retrieval quality
+- 384 dimensions
+- CPU friendly
+- deterministic
+- strong retrieval quality
 
 ---
 
@@ -227,7 +273,23 @@ Structured scoring
 Top 100 selected
 ```
 
-Single-stage retrieval was intentionally chosen to avoid unnecessary complexity.
+Single-stage retrieval was intentionally chosen to avoid unnecessary complexity while still scaling efficiently.
+
+---
+
+## Explanation / Reasoning Layer
+
+Every shortlisted candidate includes a deterministic reasoning string that is built from actual profile signals. The reasoning avoids hallucination and focuses on recruiter-friendly evidence such as:
+
+- job title relevance,
+- shipping evidence,
+- experience level,
+- domain match,
+- skill depth,
+- logistics fit,
+- and consistency checks.
+
+This makes the ranking interpretable and easier to trust.
 
 ---
 
@@ -241,14 +303,14 @@ config.yaml
 
 Includes:
 
-* scoring weights
-* retrieval_k
-* company scores
-* honeypot thresholds
-* behavioral thresholds
-* location preferences
-* artifact paths
-* output precision
+- scoring weights
+- retrieval_k
+- company scores
+- honeypot thresholds
+- behavioral thresholds
+- location preferences
+- artifact paths
+- output precision
 
 No source-code changes are required for tuning.
 
@@ -263,6 +325,9 @@ redrob-ranker/
 ├── config.yaml
 ├── jd.txt
 ├── submission_metadata.yaml
+│
+├── demo/
+│   ├── index.html
 │
 ├── src/
 │   ├── constants.py
@@ -370,35 +435,59 @@ PASSED
 ### 6. Generate Submission Summary
 
 ```bash
-python scripts/top100_summary.py \
-  --submission submission/submission.csv \
-  --candidates candidates.jsonl
+python scripts/top100_summary.py   --submission submission/submission.csv   --candidates candidates.jsonl
 ```
 
 Displays:
 
-* score spread
-* geography breakdown
-* notice periods
-* reasoning quality
-* component averages
+- score spread
+- geography breakdown
+- notice periods
+- reasoning quality
+- component averages
 
 ---
 
 ### 7. Retrieval Diagnostics
 
 ```bash
-python scripts/retrieval_diagnostics.py \
-  --candidates candidates.jsonl \
-  --k 500
+python scripts/retrieval_diagnostics.py   --candidates candidates.jsonl   --k 500
 ```
 
 Displays:
 
-* similarity distribution
-* retrieval coverage
-* top retrieved candidates
-* domain relevance metrics
+- similarity distribution
+- retrieval coverage
+- top retrieved candidates
+- domain relevance metrics
+
+---
+
+## Interactive Demo Usage
+
+The live demo is a static front-end prototype that can also be run locally.
+
+### Open the hosted version
+
+```text
+https://DSJamwal2004.github.io/redrob-ranker/demo/
+```
+
+### Run locally
+
+Open:
+
+```text
+demo/index.html
+```
+
+You can use it to:
+
+- view the dashboard,
+- inspect top-ranked candidates,
+- compare candidate profiles,
+- study score breakdowns,
+- and switch to the semantic-vs-keyword explanation tab.
 
 ---
 
@@ -419,10 +508,10 @@ Final results:
 
 Including:
 
-* determinism tests
-* quality tests
-* scoring sanity checks
-* honeypot detection tests
+- determinism tests
+- quality tests
+- scoring sanity checks
+- honeypot detection tests
 
 ---
 
@@ -491,17 +580,31 @@ Identical output across repeated runs
 
 ---
 
+## Project Highlights
+
+- Hybrid semantic + structured ranking
+- FAISS vector retrieval at scale
+- Explainable recruiter reasoning
+- Deterministic ranking output
+- Soft consistency / honeypot detection
+- Fully validated CSV submission
+- Interactive live demo prototype
+- Product-quality presentation layer
+
+---
+
 ## Pre-Submission Checklist
 
-* [x] Precompute completed successfully
-* [x] Ranking runtime < 5 minutes
-* [x] Validation passed
-* [x] Determinism verified
-* [x] Top candidates manually reviewed
-* [x] Reasoning reviewed
-* [x] Submission CSV generated
-* [x] GitHub repository prepared
-* [x] Final configuration saved
+- [x] Precompute completed successfully
+- [x] Ranking runtime < 5 minutes
+- [x] Validation passed
+- [x] Determinism verified
+- [x] Top candidates manually reviewed
+- [x] Reasoning reviewed
+- [x] Submission CSV generated
+- [x] GitHub repository prepared
+- [x] Final configuration saved
+- [x] Live demo prepared
 
 ---
 
@@ -518,4 +621,19 @@ This system prioritizes:
 5. Timeline consistency
 
 The result is a shortlist that more closely resembles how an experienced recruiter would evaluate candidates rather than how a keyword search engine would rank them.
+
+The interactive demo makes that logic visible to judges by showing the shortlist, score breakdown, candidate comparisons, and semantic-vs-keyword behavior in one clean interface.
+
+---
+
+## Submission Notes
+
+This repository is designed to support the full Redrob challenge submission:
+
+- clean, working GitHub repo
+- final ranked CSV output
+- PDF deck explaining the approach
+- interactive demo prototype for presentation
+
+
 
